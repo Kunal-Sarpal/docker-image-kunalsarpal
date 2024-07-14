@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mongodb:
+    image: "mongo"
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - "mongodb_data:/data/db"
+    # docker run -v mongodb_data:/data/db -p 27017:17017 --name mongodb mongo
+
+  backend:
+    image: "kunalsarpal/week-15"
+    container_name: backend_application
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_URL: "mongodb://mongodb:27017" # container_name of mongodb is used in the URL
+
+volumes:
+  mongodb_data:
